@@ -37,6 +37,34 @@ codex review
 修复 <问题>。只修改 <目录>；不要碰配置和生产数据；完成后运行 <测试> 并总结结果。
 ```
 
+## 交互式斜杠命令
+
+在 Codex 输入框中输入 `/help` 可查看当前版本和账号实际可用的命令。以下分组已在 Codex CLI v0.144.1 验证：
+
+| 目的 | 常用命令 |
+| --- | --- |
+| 模型与会话状态 | `/model`、`/status`、`/usage`、`/permissions` |
+| 上下文控制 | `/compact`、`/new`、`/clear`、`/plan`、`/goal <objective>` |
+| 工作区与结果 | `/init`、`/mention <file>`、`/diff`、`/review` |
+| 扩展能力 | `/skills`、`/mcp`、`/plugins`、`/hooks`、`/experimental` |
+| 会话管理 | `/rename`、`/resume`、`/fork`、`/archive`、`/delete` |
+| 界面与诊断 | `/config`、`/statusline`、`/raw`、`/keymap`、`/feedback` |
+
+最常用的几个：
+
+```text
+/model       # 选择模型和推理强度
+/compact     # 压缩长对话，释放上下文
+/status      # 查看模型、权限和 token 使用
+/permissions # 调整当前会话的命令权限
+/review      # 审查当前 Git 改动
+/skills      # 查看和开关可用 skills
+/mcp         # 查看 MCP 工具；可用 /mcp verbose 查看详情
+/diff        # 查看 Git 差异，包括未跟踪文件
+```
+
+命令随版本、账号权限和实验功能变化；陌生命令优先执行 `/help`，不要凭旧教程猜参数。
+
 ## 权限与目录
 
 ```bash

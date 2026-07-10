@@ -36,3 +36,14 @@ gemini --help
 ```
 
 项目规则通常写在 `GEMINI.md`。安装 extension 或配置 MCP 前先审查来源、权限和数据范围。
+
+## 交互式命令
+
+进入 Gemini CLI 后先输入 `/help`。Gemini 的斜杠命令迭代较快，不建议把旧版本命令当固定接口。当前可确认的交互入口包括：
+
+```text
+/help  # 查看当前版本命令
+/auth  # 查看或处理认证入口
+```
+
+模型、会话、工具和配置的具体命令应以 `/help` 为准；需要稳定自动化时，优先使用外部命令 `gemini --help`、`gemini mcp --help`、`gemini skills --help`、`gemini extensions --help` 和 `gemini hooks --help`。

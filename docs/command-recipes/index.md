@@ -15,6 +15,8 @@
 - [Slurm](slurm.md)
 - [HDFS](hdfs.md)
 - [GitHub CLI](github-cli.md)
+- [Prometheus](prometheus.md)
+- [ClickHouse](clickhouse.md)
 
 跨工具需求按完整流程拆分：
 
