@@ -1,0 +1,19 @@
+# 需求
+
+## 目标
+
+- 发布经过脱敏审核的通用技术文档。
+- 提供中文优先、可搜索、适合代码和运维手册的静态站点。
+- 让站点在 GitHub Actions 中自动构建并发布到 GitHub Pages。
+
+## 约束
+
+- 不包含真实公司名、主机名、域名、账号、内网 IP、SSH 配置、凭据或日志。
+- 原始私有文档继续保留在 private `ai-workspace`，不复制到公开站。
+- 每次发布前必须通过脚本扫描和人工审核。
+
+## 验收标准
+
+- `scripts/audit-public-docs.sh docs` 通过。
+- `mkdocs build --strict` 成功。
+- GitHub Actions 成功部署到 GitHub Pages。
