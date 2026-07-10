@@ -45,6 +45,10 @@ nav:
       - Docker: command-recipes/docker.md
       - MySQL: command-recipes/mysql.md
       - Redis: command-recipes/redis.md
+      - Linux: command-recipes/linux.md
+      - Slurm: command-recipes/slurm.md
+      - HDFS: command-recipes/hdfs.md
+      - GitHub CLI: command-recipes/github-cli.md
       - Docker MySQL 数据库与用户初始化: command-recipes/docker-mysql-provisioning.md
   - 指南:
       - 硬件维护预检: guides/hardware-maintenance-precheck.md

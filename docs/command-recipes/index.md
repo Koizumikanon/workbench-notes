@@ -7,6 +7,10 @@
 - [Docker](docker.md)
 - [MySQL](mysql.md)
 - [Redis](redis.md)
+- [Linux](linux.md)
+- [Slurm](slurm.md)
+- [HDFS](hdfs.md)
+- [GitHub CLI](github-cli.md)
 
 跨工具需求按完整流程拆分：
 
