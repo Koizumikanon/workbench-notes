@@ -11,9 +11,12 @@
 - 不包含真实公司名、主机名、域名、账号、内网 IP、SSH 配置、凭据或日志。
 - 原始私有文档继续保留在 private `ai-workspace`，不复制到公开站。
 - 每次发布前必须通过脚本扫描和人工审核。
+- 每个页面首屏必须显示最后更新、页面类型和关键词。
+- 已验证的工作经验可沉淀为匿名通用页面；公司环境和工作场景标签只保留在 private 记录。
 
 ## 验收标准
 
 - `scripts/audit-public-docs.sh docs` 通过。
 - `mkdocs build --strict` 成功。
 - GitHub Actions 成功部署到 GitHub Pages。
+- 页面可快速识别更新时间、类型和关键词，且不包含私有工作场景标签。

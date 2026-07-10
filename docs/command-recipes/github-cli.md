@@ -1,5 +1,9 @@
 # GitHub CLI 命令
 
+> 最后更新：2026-07-10 | 类型：命令速查
+>
+> 关键词：`github`、`gh`、`actions`、`pages`
+
 ## 登录与身份
 
 ```bash

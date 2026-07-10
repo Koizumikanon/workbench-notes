@@ -1,5 +1,9 @@
 # Redis 命令
 
+> 最后更新：2026-07-10 | 类型：命令速查
+>
+> 关键词：`redis`、`cache`、`keys`、`diagnostics`
+
 ## 登录与连通性
 
 本机或远端 Redis：

@@ -1,5 +1,9 @@
 # Docker MySQL：创建数据库、用户并授权
 
+> 最后更新：2026-07-10 | 类型：场景配方
+>
+> 关键词：`docker`、`mysql`、`database`、`privileges`
+
 适用场景：需求方需要在 Docker 容器运行的 MySQL 中，为应用创建一个数据库和独立用户。
 
 ## 先确认容器

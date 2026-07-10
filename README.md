@@ -33,6 +33,8 @@ git subtree push --prefix=projects/workbench-notes workbench-notes main
 - 通用扫描会阻止私钥、公钥、token、常见凭据和 RFC1918 内网 IP。
 - 仍需人工检查真实公司名、主机名、域名、账号、架构图、日志和业务上下文。
 - 更严格的私有 denylist 可以放在 `.local/`，并作为第二个参数传给审核脚本。
+- 每个公开页面开头都写可见的“最后更新、类型、关键词”，方便快速判断内容和检索。
+- 已验证的工作需求可先记录到 private `memory/work-experience/`，再按脱敏规则补充现有页面或创建公开草稿；公开推送仍需确认。
 
 ## 状态
 

@@ -1,5 +1,9 @@
 # HDFS 命令
 
+> 最后更新：2026-07-10 | 类型：命令速查
+>
+> 关键词：`hdfs`、`hadoop`、`storage`、`kerberos`
+
 ## 客户端与认证
 
 ```bash
