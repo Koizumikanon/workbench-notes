@@ -17,6 +17,7 @@
 - [GitHub CLI](github-cli.md)
 - [Prometheus](prometheus.md)
 - [ClickHouse](clickhouse.md)
+- [Agedu 磁盘占用分析](agedu.md)
 
 跨工具需求按完整流程拆分：
 
