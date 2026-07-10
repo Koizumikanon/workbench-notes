@@ -50,5 +50,16 @@ nav:
       - HDFS: command-recipes/hdfs.md
       - GitHub CLI: command-recipes/github-cli.md
       - Docker MySQL 数据库与用户初始化: command-recipes/docker-mysql-provisioning.md
+  - AI Coding CLI:
+      - 总览: ai-cli/index.md
+      - Codex CLI: ai-cli/codex-cli.md
+      - Claude Code: ai-cli/claude-code.md
+      - Gemini CLI: ai-cli/gemini-cli.md
+      - DeepSeek 命令行接入: ai-cli/deepseek-cli.md
+  - AI Skills:
+      - 总览: ai-skills/index.md
+      - 公开文档审核 Skill: ai-skills/public-docs-review.md
+      - 工作经验沉淀 Skill: ai-skills/work-experience-pages.md
   - 指南:
       - 硬件维护预检: guides/hardware-maintenance-precheck.md
+      - 文档站的分类与扩展: guides/documentation-site-growth.md
