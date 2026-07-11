@@ -133,6 +133,32 @@ head -20 /var/lib/node_exporter/textfile_collector/<collector>.prom
 
 如果文件时间明显早于当前时间，应先排查 cron、采集命令、写入权限和原子写入工具，再把数据用于硬件告警判断。
 
+## 故障分流
+
+不要从 Grafana 页面直接跳到重启。按这个顺序缩小范围：
+
+```text
+exporter 本机 /metrics
+→ DNS A 与 SRV
+→ Prometheus /api/v1/targets
+→ 查询层指标
+→ Grafana 变量、时间范围和 datasource
+```
+
+最短检查：
+
+```bash
+# Prometheus 是否发现 target，lastError 是什么
+curl -sS http://monitor.example:9090/api/v1/targets | jq \
+  '.data.activeTargets[] | select(.labels.instance == "host-a.ops.example:9100") | {health,lastError,scrapeUrl}'
+
+# 查询层是否已有 dashboard 依赖的基础指标
+curl -sG http://metrics.example:8428/api/v1/query \
+  --data-urlencode 'query=node_uname_info{instance="host-a.ops.example:9100"}' | jq .
+```
+
+如果查询层已有指标而 Grafana 下拉没有该主机，再检查 dashboard 变量使用的 metric、label selector、时间范围和 datasource；不要重新部署 exporter。
+
 ## 常见误区
 
 - Grafana 下拉框没有机器，不等于 Grafana 出问题；先查 exporter、DNS、Prometheus target 和查询层指标。
