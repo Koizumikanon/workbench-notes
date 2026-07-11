@@ -30,6 +30,24 @@ curl -sG \
   http://<prometheus-host>:<port>/api/v1/query | jq .
 ```
 
+`up` 是 Prometheus 自己生成的抓取状态：`1` 表示本次抓取成功，`0` 表示目标已发现但抓取失败。`job` 是 scrape 配置名称，`instance` 通常是完整的 `<host>:<port>`。
+
+查询一条基础指标：
+
+```bash
+curl -sG \
+  --data-urlencode 'query=node_uname_info{instance="<host>:9100"}' \
+  http://<metrics-host>:<port>/api/v1/query | jq .
+```
+
+汇总同一机器的多个 sensor 或设备指标：
+
+```bash
+curl -sG \
+  --data-urlencode 'query=count(<metric_name>{instance="<host>:<port>"})' \
+  http://<metrics-host>:<port>/api/v1/query | jq .
+```
+
 查询 targets：
 
 ```bash
