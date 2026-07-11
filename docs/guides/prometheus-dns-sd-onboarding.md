@@ -69,6 +69,21 @@ _prometheus.gpu.example. IN SRV 10 500 9835 gpu-a
 
 不要把 9100 和 9835 混进同一个被同一 scrape job 查询的 SRV 记录集合；否则 Prometheus 会把错误的 exporter 类型抓到错误端口。
 
+## 部署前确认副作用
+
+自动化工具的“幂等”通常表示它会反复收敛到期望状态，不表示重复运行不会产生影响。部署 exporter 的 role 可能包含软件包安装、文件覆盖、cron 更新、systemd reload/restart 和端口监听。
+
+在批量执行前明确记录：
+
+```text
+- 哪些文件会覆盖，以及备份位置
+- 哪些服务会 reload 或 restart
+- 是否新增定时任务、用户或软件包
+- 每台机器的本地验证和失败回滚
+```
+
+`ansible-playbook --check` 适合作为预览，但 shell、command、包管理和服务管理任务未必能完全模拟。不要把 check mode 成功当作生产执行成功。
+
 ## 安全变更顺序
 
 ```bash
