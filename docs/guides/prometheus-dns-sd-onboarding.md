@@ -188,6 +188,19 @@ curl -sG http://metrics.example:8428/api/v1/query \
 
 如果查询层已有指标而 Grafana 下拉没有该主机，再检查 dashboard 变量使用的 metric、label selector、时间范围和 datasource；不要重新部署 exporter。
 
+## 抓取成功与网络探测成功不是一回事
+
+`up` 表示 Prometheus 能否抓到 exporter；`probe_success` 表示 blackbox exporter 能否完成网络探测。两者结合可以区分 exporter、网络和抓取链路问题。
+
+```bash
+curl -sG http://metrics.example:8428/api/v1/query \
+  --data-urlencode 'query=up{instance="host-a.ops.example:9100"}' | jq .
+curl -sG http://metrics.example:8428/api/v1/query \
+  --data-urlencode 'query=probe_success{instance="host-a.ops.example:9100"}' | jq .
+```
+
+探测 job 的名称不保证代表协议。检查它实际使用的 blackbox module，例如 `tcp_connect` 或 `icmp`，再解释 `probe_success` 的含义。
+
 ## 常见误区
 
 - Grafana 下拉框没有机器，不等于 Grafana 出问题；先查 exporter、DNS、Prometheus target 和查询层指标。
