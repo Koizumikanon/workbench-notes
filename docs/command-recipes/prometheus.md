@@ -55,6 +55,16 @@ curl -sS http://<prometheus-host>:<port>/api/v1/targets | jq .
 curl -sS http://<prometheus-host>:<port>/api/v1/targets | jq '.data.activeTargets[] | {scrapeUrl, health, labels, lastError}'
 ```
 
+## 告警与规则
+
+```bash
+curl -sS http://<prometheus-host>:<port>/api/v1/alerts | jq .
+curl -sS http://<prometheus-host>:<port>/api/v1/rules | jq .
+curl -fsS http://<alertmanager-host>:9093/-/ready
+```
+
+先确认告警的精确 `instance`、规则表达式和当前指标，再决定是否登录目标机。不要因为单条告警直接重启 exporter 或修改阈值。
+
 ## 目标机检查
 
 ```bash
