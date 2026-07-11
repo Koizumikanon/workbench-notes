@@ -8,6 +8,17 @@
 
 DNS 服务发现（DNS-SD）适合把一批同类 exporter 交给 Prometheus 自动发现。它减少了静态 target 列表，但 DNS、Prometheus 与 exporter 必须一起验证。
 
+## 先确认目标属于 DNS-SD
+
+Prometheus 常见有两种接入模式：
+
+```text
+DNS-SD：dns_sd_configs → DNS A/SRV → 一批同类 exporter
+静态目标：static_configs → 配置中明确列出地址和端口
+```
+
+本文只适用于 DNS-SD。HDFS、SNMP、cAdvisor、业务 exporter 等专项服务可能使用静态 target、自定义 metrics path 或专用认证方式；不要因为它们也能被 Grafana 展示，就把它们放进通用 node exporter 的 SRV 池。
+
 ## 工作模型
 
 ```text
