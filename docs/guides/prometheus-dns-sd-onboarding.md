@@ -91,6 +91,8 @@ sudo rndc zonestatus ops.example
 
 若候选校验或 reload 后的 zone serial 不符合预期，立刻恢复备份文件，再校验和 reload；不要在失败文件上继续追加记录。
 
+`named-checkzone` 通过只说明候选文件语法有效；它不等于 named 已经在运行时加载该文件。应始终继续检查 `rndc zonestatus` 的 serial，并用 `dig` 查询实际返回的记录。
+
 ## 验证顺序
 
 ```bash
