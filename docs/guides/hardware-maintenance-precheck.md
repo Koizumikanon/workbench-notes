@@ -1,6 +1,6 @@
 # 硬件维护前的系统预检
 
-> 最后更新：2026-07-10 | 类型：维护指南
+> 最后更新：2026-07-11 | 类型：维护指南
 >
 > 关键词：`hardware`、`maintenance`、`precheck`、`systems`
 >
@@ -59,6 +59,87 @@ ip route show
 ```
 
 维护后至少从独立跳板路径回连一次，验证网络、DNS、关键端口和服务恢复。
+
+## 开机后的恢复门槛
+
+开机并不等于维护结束。先保持调度节点处于维护状态，按下面顺序确认恢复结果：
+
+1. 确认磁盘、RAID、地址、路由、网关和 DNS。
+2. 确认容器运行时、认证服务、角色服务和关键端口。
+3. 确认监控和消息服务的实际进程；同一个端口被其他服务监听不能作为恢复证据。
+4. 完成角色专项检查，再恢复调度或业务流量。
+
+```bash
+findmnt -rn -o TARGET,SOURCE,FSTYPE,OPTIONS | sort
+cat /proc/mdstat
+ip -br address
+ip route show
+systemctl is-active <container-runtime> <scheduler-agent> <auth-service>
+ss -ltnp
+pgrep -af '<monitor-process>|<message-process>' || true
+```
+
+如果永久拆除了磁盘，也检查 boot-time 挂载来源。除了 `/etc/fstab`，还可能有 cron、systemd mount unit 或应用启动脚本。
+
+```bash
+findmnt --verify --verbose
+sudo crontab -l
+systemctl list-unit-files --type=mount
+```
+
+## 网络迁移
+
+不要根据旧接口名推断新网卡。先通过驱动、PCI 总线、MAC、链路和速率识别目标接口，再迁移地址。
+
+```bash
+ip -br link
+ip -br address
+lspci -nnk | grep -A3 -Ei 'ethernet|network'
+ethtool -i <new-interface>
+ethtool <new-interface> | grep -E 'Speed:|Link detected:'
+```
+
+保存旧配置后，在控制台或备用回连路径上应用变更。保留非目标网段；若存在多个默认路由，为每条路由设置明确 metric。
+
+```bash
+sudo netplan generate
+sudo netplan try --timeout 120
+ip route show
+ping -c 3 -I <new-interface> <gateway>
+```
+
+## 角色专项检查
+
+### 仲裁或日志 quorum
+
+维护一个成员前，确认其余成员仍满足多数派。恢复后验证本机进程、监听端口和上层 HA 状态。落后成员从健康成员同步日志是常见恢复行为；出现错误退出才应停止恢复流程。
+
+### 调度计算节点
+
+调度 agent 可能在网络或控制端尚不可达时启动失败。网络恢复后，在节点仍处于维护状态时重新启动 agent，并确认其已向控制端注册。
+
+如果节点被标记为资源注册无效，比较本机硬件上报和控制端节点定义：
+
+```bash
+<scheduler-agent> -C
+<scheduler-controller> show node <node>
+```
+
+修正控制端的单节点资源定义并按批准流程刷新配置；不要修改本机缓存或全局放宽资源校验。
+
+### 数据库主备
+
+在主库查询写入状态，在备库查询复制状态。主库上没有复制上游时，复制状态为空通常正常。
+
+```sql
+-- source
+SHOW MASTER STATUS;
+
+-- replica
+SHOW REPLICA STATUS;
+```
+
+备库的 IO/SQL 复制线程应运行、延迟可接受且没有复制错误。凭据只在受控交互会话中输入。
 
 ## 推荐维护流程
 

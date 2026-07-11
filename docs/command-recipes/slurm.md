@@ -1,6 +1,6 @@
 # Slurm 命令
 
-> 最后更新：2026-07-10 | 类型：命令速查
+> 最后更新：2026-07-11 | 类型：命令速查
 >
 > 关键词：`slurm`、`scheduler`、`jobs`、`cluster`
 >
@@ -78,6 +78,40 @@ scontrol show job <job-id> | rg 'JobState|Reason|StdOut|StdErr'
 scancel <job-id>
 scancel -u "$USER"
 ```
+
+## 节点维护与恢复
+
+以下命令会改变调度状态，只能由获得授权的运维人员执行。先确认节点没有作业、没有未确认的本机工作负载，并完成角色服务验收。
+
+```bash
+scontrol show node <node>
+squeue -w <node>
+scontrol update NodeName=<node> State=DRAIN Reason='scheduled maintenance'
+```
+
+开机后先确认调度 agent 已恢复并监听：
+
+```bash
+systemctl is-active slurmd
+ss -ltnp
+scontrol show node <node>
+```
+
+若节点显示资源注册无效，比较本机上报和控制端定义，再修正控制端配置：
+
+```bash
+slurmd -C
+scontrol show node <node>
+```
+
+确认节点不再是 `DOWN`、`NOT_RESPONDING` 或 `INVALID_REG` 后恢复：
+
+```bash
+scontrol update NodeName=<node> State=RESUME
+scontrol show node <node>
+```
+
+`RESUME` 不会删除 reservation；节点可能恢复为 `IDLE+RESERVED`，这是正常结果。
 
 !!! warning "会申请或取消资源"
 
