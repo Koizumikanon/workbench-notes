@@ -69,6 +69,20 @@ _prometheus.gpu.example. IN SRV 10 500 9835 gpu-a
 
 不要把 9100 和 9835 混进同一个被同一 scrape job 查询的 SRV 记录集合；否则 Prometheus 会把错误的 exporter 类型抓到错误端口。
 
+## 把指标 schema 当作接口
+
+同一个 exporter 的不同版本可能改名、删除或新增指标。Grafana 变量、面板和告警规则依赖的是具体指标与标签，而不只是端口能访问。
+
+部署或升级前检查：
+
+```bash
+<exporter-binary> --version
+sha256sum <exporter-binary>
+curl -fsS http://127.0.0.1:<exporter-port>/metrics | head -80
+```
+
+再从查询层确认 dashboard 真正依赖的指标已经入库。只有“服务可访问”和“指标 schema 兼容”同时成立，升级才算成功。
+
 ## 部署前确认副作用
 
 自动化工具的“幂等”通常表示它会反复收敛到期望状态，不表示重复运行不会产生影响。部署 exporter 的 role 可能包含软件包安装、文件覆盖、cron 更新、systemd reload/restart 和端口监听。
