@@ -108,9 +108,22 @@ dig +short @127.0.0.1 _prometheus.ops.example SRV | wc -l
 
 接近上限时，新建规则化的 shard，例如 `ops01.example`、`ops02.example`，并把新 SRV 名称加入对应 Prometheus job 的 `dns_sd_configs`。不要把所有机器持续追加到一个接近上限的 SRV 集合。
 
+## Textfile collector 的数据新鲜度
+
+有些硬件或业务指标通过 cron 写入 node exporter 的 textfile collector。此时 exporter 服务正常、指标也存在，并不代表指标是新的；检查生成文件的修改时间：
+
+```bash
+systemctl is-active cron
+stat -c '%n|mtime=%y|size=%s' /var/lib/node_exporter/textfile_collector/<collector>.prom
+head -20 /var/lib/node_exporter/textfile_collector/<collector>.prom
+```
+
+如果文件时间明显早于当前时间，应先排查 cron、采集命令、写入权限和原子写入工具，再把数据用于硬件告警判断。
+
 ## 常见误区
 
 - Grafana 下拉框没有机器，不等于 Grafana 出问题；先查 exporter、DNS、Prometheus target 和查询层指标。
 - `up=1` 只代表抓取成功，仍要确认 dashboard 实际依赖的指标存在。
+- textfile 指标存在不代表新鲜，必须检查生成文件的更新时间。
 - IPMI textfile 指标、GPU exporter、node exporter 的部署副作用不同；先按机器能力分类，再批量执行。
 - 批量数据面部署可以并发；同一个 DNS zone 或 Prometheus 配置文件的修改必须串行、备份并校验。
