@@ -66,6 +66,7 @@ nav:
   - 指南:
       - 硬件维护预检: guides/hardware-maintenance-precheck.md
       - Prometheus DNS-SD 接入: guides/prometheus-dns-sd-onboarding.md
+      - 跨网络 Prometheus 采集: guides/prometheus-regional-scrape.md
       - 文档站的分类与扩展: guides/documentation-site-growth.md
       - 容器服务盘点与交接: guides/container-service-inventory.md
       - 交互式堡垒机工作流: guides/interactive-bastion-workflow.md
