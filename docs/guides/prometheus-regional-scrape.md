@@ -1,6 +1,6 @@
 # 跨网络接入 Prometheus：集中抓取与区域采集端的选择
 
-> 最后更新：2026-07-11 | 类型：运维指南
+> 最后更新：2026-07-12 | 类型：运维指南
 >
 > 关键词：`prometheus`、`gpu-exporter`、`dns-sd`、`grafana`、`regional-scrape`
 >
@@ -8,7 +8,7 @@
 
 当监控中心无法访问某台 exporter 时，最常见的错误是把它仍然登记到中央 Prometheus：结果只是一个长期 `down` target。正确问题不是“如何让 Grafana 显示机器”，而是“哪个采集端能从自己的网络到达 exporter”。
 
-本文给出两条可并存的接入路径，以及从部署到看板的完整验证顺序。
+本文聚焦采集拓扑选择和中央/区域切换。单台主机从 exporter 部署到 Grafana 验收的完整步骤见[单台 NVIDIA GPU 主机接入 Prometheus 与 Grafana](nvidia-gpu-monitoring-onboarding.md)；DNS-SD zone 的完整操作见[使用 DNS-SD 接入 Prometheus](prometheus-dns-sd-onboarding.md)。
 
 ## 先分清四层
 
@@ -184,6 +184,8 @@ Datasource → Job → Node → GPU
 ```
 
 Datasource 与 job 都应对使用者可见；node/gpu 查询应使用当前 datasource，而不是固定到中央数据源。新增 datasource 前先从 Grafana 网络确认能访问对应 Prometheus `:9090`，否则下拉框里只会多出一个无数据选项。
+
+Job、Node 和 GPU 可以用 `label_values(nvidia_info, ...)` 在当前 datasource 内自动发现。Datasource 变量本身只能按类型或名称 regex 过滤，不能逐个查询 Prometheus 是否存在 `nvidia_info` 后自动隐藏无 GPU 的 datasource。实际使用时应采用统一命名规则，或维护一个已验证 GPU datasource 的小型白名单。
 
 ## 常见失败与恢复
 

@@ -65,6 +65,7 @@ nav:
       - 工作经验沉淀 Skill: ai-skills/work-experience-pages.md
   - 指南:
       - 硬件维护预检: guides/hardware-maintenance-precheck.md
+      - NVIDIA GPU 监控接入: guides/nvidia-gpu-monitoring-onboarding.md
       - Prometheus DNS-SD 接入: guides/prometheus-dns-sd-onboarding.md
       - 跨网络 Prometheus 采集: guides/prometheus-regional-scrape.md
       - 文档站的分类与扩展: guides/documentation-site-growth.md

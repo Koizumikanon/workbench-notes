@@ -1,12 +1,14 @@
 # 使用 DNS-SD 接入 Prometheus 监控目标
 
-> 最后更新：2026-07-11 | 类型：运维指南
+> 最后更新：2026-07-12 | 类型：运维指南
 >
 > 关键词：`prometheus`、`dns-sd`、`bind`、`node-exporter`、`grafana`
 >
 > 经验标签：`FT`
 
 DNS 服务发现（DNS-SD）适合把一批同类 exporter 交给 Prometheus 自动发现。它减少了静态 target 列表，但 DNS、Prometheus 与 exporter 必须一起验证。
+
+本文只负责 DNS-SD 控制面。单台 NVIDIA GPU 主机的 exporter 部署、采集端选择、Prometheus 查询和 Grafana 变量见[单台 NVIDIA GPU 主机接入 Prometheus 与 Grafana](nvidia-gpu-monitoring-onboarding.md)；跨网络拓扑选择见[跨网络接入 Prometheus](prometheus-regional-scrape.md)。
 
 ## 先确认目标属于 DNS-SD
 
