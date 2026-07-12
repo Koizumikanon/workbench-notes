@@ -1,6 +1,6 @@
 # HDFS 命令
 
-> 最后更新：2026-07-10 | 类型：命令速查
+> 最后更新：2026-07-12 | 类型：命令速查
 >
 > 关键词：`hdfs`、`hadoop`、`storage`、`kerberos`
 >
@@ -62,6 +62,16 @@ hdfs dfs -chown <owner>:<group> <path>
 hdfs dfs -setrep -w <replication> <path>
 ```
 
+## ACL 权限
+
+```bash
+hdfs dfs -getfacl <path>
+hdfs dfs -setfacl -m user:<user>:rwx <path>
+hdfs dfs -setfacl -m default:user:<user>:rwx <directory>
+```
+
+需要通过 Kerberos 管理员身份为多个用户递归授权，并让以后新建内容继承权限时，使用完整场景配方：[Kerberos HDFS ACL 批量授权](hdfs-acl-authorization.md)。
+
 ## 集群只读状态
 
 ```bash
@@ -72,4 +82,4 @@ hdfs getconf -confKey dfs.nameservices
 
 !!! warning "写操作"
 
-    `-mkdir`、`-put`、`-cp`、`-chmod`、`-chown`、`-setrep`、`-rm` 和 `-rm -r` 会改变 HDFS。确认路径、命名空间、权限和配额后再执行。
+    `-mkdir`、`-put`、`-cp`、`-chmod`、`-chown`、`-setfacl`、`-setrep`、`-rm` 和 `-rm -r` 会改变 HDFS。确认路径、命名空间、权限和配额后再执行。

@@ -14,6 +14,7 @@
 - [Linux](linux.md)
 - [Slurm](slurm.md)
 - [HDFS](hdfs.md)
+- [Kerberos HDFS ACL 批量授权](hdfs-acl-authorization.md)
 - [GitHub CLI](github-cli.md)
 - [Prometheus](prometheus.md)
 - [ClickHouse](clickhouse.md)

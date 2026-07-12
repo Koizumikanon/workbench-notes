@@ -48,6 +48,7 @@ nav:
       - Linux: command-recipes/linux.md
       - Slurm: command-recipes/slurm.md
       - HDFS: command-recipes/hdfs.md
+      - Kerberos HDFS ACL 批量授权: command-recipes/hdfs-acl-authorization.md
       - GitHub CLI: command-recipes/github-cli.md
       - Prometheus: command-recipes/prometheus.md
       - ClickHouse: command-recipes/clickhouse.md
