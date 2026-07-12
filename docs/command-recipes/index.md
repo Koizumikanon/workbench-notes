@@ -18,6 +18,7 @@
 - [Prometheus](prometheus.md)
 - [ClickHouse](clickhouse.md)
 - [Agedu 磁盘占用分析](agedu.md)
+- [使用 ipmitool 配置 BMC 网络与用户](ipmitool-bmc-configuration.md)
 
 跨工具需求按完整流程拆分：
 

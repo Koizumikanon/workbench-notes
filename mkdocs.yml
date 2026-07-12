@@ -52,6 +52,7 @@ nav:
       - Prometheus: command-recipes/prometheus.md
       - ClickHouse: command-recipes/clickhouse.md
       - Agedu 磁盘占用分析: command-recipes/agedu.md
+      - ipmitool 配置 BMC: command-recipes/ipmitool-bmc-configuration.md
       - Docker MySQL 数据库与用户初始化: command-recipes/docker-mysql-provisioning.md
   - AI Coding CLI:
       - 总览: ai-cli/index.md
