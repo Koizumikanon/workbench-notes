@@ -67,6 +67,7 @@ nav:
       - 工作经验沉淀 Skill: ai-skills/work-experience-pages.md
   - 指南:
       - 硬件维护预检: guides/hardware-maintenance-precheck.md
+      - Ubuntu Server 安装精简桌面: guides/ubuntu-2204-minimal-desktop.md
       - NVIDIA GPU 监控接入: guides/nvidia-gpu-monitoring-onboarding.md
       - Prometheus DNS-SD 接入: guides/prometheus-dns-sd-onboarding.md
       - 跨网络 Prometheus 采集: guides/prometheus-regional-scrape.md
